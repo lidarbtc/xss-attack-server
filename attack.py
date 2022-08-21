@@ -3,7 +3,6 @@ import pymysql
 
 app = Flask(__name__)
 
-
 def db_connector(sql_command):
     MYSQL_DB = {
         'user': 'dbuser',
@@ -27,13 +26,11 @@ def db_connector(sql_command):
     db.close()
     return str(result).replace("(", "").replace(")", "").replace("'", "").replace(',', '').rstrip()
 
-
 @app.route('/', methods=['GET'])
 def index():
     cookie = request.args.get('cookie')
     db_connector(f"INSERT INTO cookietable(cookie) VALUES('{cookie}');")
     return "ok"
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5555)
